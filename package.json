@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
+    "build:ci": "next build --no-lint",
     "start": "next start",
     "start:prod": "node server.js",
     "lint": "next lint --dir app --dir components --dir lib",
