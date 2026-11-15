@@ -10,9 +10,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        fromDatabase:
-          name: saayo-db
-          property: connectionString
+        value: postgresql://postgres.bidjnbsyfytiodwuwuyq:Shivam%408683@aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres?schema=public&sslmode=require
       - key: NEXTAUTH_SECRET
         generateValue: true
       - key: NEXTAUTH_URL
@@ -44,10 +42,3 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
     healthCheckPath: /api/health
-
-databases:
-  - name: saayo-db
-    plan: free
-    region: singapore
-    databaseName: saayo
-    user: saayo
