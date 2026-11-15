@@ -7,7 +7,7 @@ set -e
 
 # ========== CONFIGURATION ==========
 RESOURCE_GROUP="saayo-rg"
-LOCATION="eastus2"  # Commonly available for Student plans
+LOCATION="centralus"  # Student plan often allows this region
 APP_NAME="saayo-tees"
 
 # Your custom domain (CHANGE THIS)
