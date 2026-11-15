@@ -7,7 +7,7 @@ set -e
 
 # ========== CONFIGURATION ==========
 RESOURCE_GROUP="saayo-rg"
-LOCATION="eastus"  # Standard region, works for App Service
+LOCATION="eastus2"  # Commonly available for Student plans
 APP_NAME="saayo-tees"
 
 # Your custom domain (CHANGE THIS)
@@ -41,13 +41,13 @@ echo "📋 Using subscription: $SUBSCRIPTION_ID"
 echo "📦 Creating resource group..."
 az group create --name $RESOURCE_GROUP --location $LOCATION
 
-# ========== CREATE APP SERVICE PLAN (FREE TIER F1) ==========
-echo "🌐 Creating App Service Plan (Free F1)..."
+# ========== CREATE APP SERVICE PLAN (BASIC B1 - covered by $100 student credit) ==========
+echo "🌐 Creating App Service Plan (Basic B1 ~$13/mo, covered by student credit)..."
 az appservice plan create \
     --resource-group $RESOURCE_GROUP \
     --name "${APP_NAME}-plan" \
     --location $LOCATION \
-    --sku F1 \
+    --sku B1 \
     --is-linux
 
 # ========== CREATE WEB APP ==========
