@@ -1,0 +1,62 @@
+{
+  "name": "saayo-3d-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready 3D e-commerce storefront built with Next.js (App Router), Three.js, Prisma, Stripe, Razorpay and AR support.",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --dir app --dir components --dir lib",
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node prisma/seed.js",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "gen:models": "node scripts/generate-models.js",
+    "test": "vitest run --dir tests",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@react-three/drei": "^9.117.4",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.3",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "clsx": "^2.1.1",
+    "jose": "^5.9.6",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "lucide-react": "^0.468.0",
+    "next": "14.2.15",
+    "nodemailer": "^6.9.16",
+    "papaparse": "^5.4.1",
+    "razorpay": "^2.9.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "recharts": "^2.13.3",
+    "stripe": "^17.4.0",
+    "tailwind-merge": "^2.5.4",
+    "three": "^0.170.0",
+    "zod": "^3.23.8"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "autoprefixer": "^10.4.20",
+    "critters": "^0.0.23",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.15",
+    "jsdom": "^25.0.1",
+    "papaparse": "^5.4.1",
+    "postcss": "^8.4.47",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.14",
+    "vitest": "^2.1.8"
+  }
+}

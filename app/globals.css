@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 222 47% 11%;
+  /* Brand palette (overridden at runtime from admin Settings → primaryColor) */
+  --brand-50: 239 246 255;
+  --brand-100: 219 234 254;
+  --brand-200: 191 219 254;
+  --brand-300: 147 197 253;
+  --brand-400: 96 165 250;
+  --brand-500: 59 130 246;
+  --brand-600: 37 99 235;
+  --brand-700: 29 78 216;
+  --brand-800: 30 64 175;
+  --brand-900: 30 58 138;
+  --brand-950: 23 37 84;
+}
+
+.dark {
+  --background: 222 47% 8%;
+  --foreground: 210 40% 96%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+}
+
+:focus-visible {
+  outline: 2px solid theme("colors.brand.500");
+  outline-offset: 2px;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600;
+  }
+  .btn-outline {
+    @apply btn border border-slate-300 bg-transparent text-slate-800 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800;
+  }
+  .btn-ghost {
+    @apply btn text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .btn-dark {
+    @apply btn bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  .table-wrap {
+    @apply overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800;
+  }
+  .table-base {
+    @apply w-full min-w-max text-left text-sm;
+  }
+  .table-base thead th {
+    @apply bg-slate-50 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-900 dark:text-slate-400;
+  }
+  .table-base tbody tr {
+    @apply border-t border-slate-100 dark:border-slate-800;
+  }
+  .table-base tbody td {
+    @apply px-4 py-3 align-middle text-slate-700 dark:text-slate-300;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .badge-success {
+    @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400;
+  }
+  .badge-warning {
+    @apply bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400;
+  }
+  .badge-danger {
+    @apply bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400;
+  }
+  .badge-info {
+    @apply bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-400;
+  }
+  .badge-neutral {
+    @apply bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded bg-slate-200/70 dark:bg-slate-800;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.prose-content h1 {
+  @apply mb-3 mt-6 text-2xl font-bold;
+}
+.prose-content h2 {
+  @apply mb-2 mt-5 text-xl font-semibold;
+}
+.prose-content p {
+  @apply mb-3 leading-relaxed text-slate-600 dark:text-slate-400;
+}
+.prose-content ul {
+  @apply mb-3 list-disc pl-5 text-slate-600 dark:text-slate-400;
+}
