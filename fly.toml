@@ -1,0 +1,32 @@
+# Fly.io config - Free tier: 3 shared-cpu-1x 256MB VMs, 3GB volume
+app = "saayo-tees"
+primary_region = "sin"  # Singapore (close to your Supabase in ap-southeast-2)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+  HOSTNAME = "0.0.0.0"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false  # Keep always alive
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+# Free persistent volume for SQLite (optional, you use Supabase)
+# [mounts]
+#   source = "saayo_data"
+#   destination = "/data"
+
+[vm]
+  memory = "256mb"  # Fits in free tier
+  cpu_kind = "shared"
+  cpus = 1
+
+[deploy]
+  strategy = "rolling"
