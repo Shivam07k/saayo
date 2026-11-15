@@ -4,7 +4,6 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client", "prisma"],
-    optimizeCss: true,
     optimizePackageImports: ["lucide-react", "@react-three/fiber", "@react-three/drei", "three"],
   },
   images: {

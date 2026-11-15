@@ -1,7 +1,4 @@
-import {
-  Inter, Roboto, Open_Sans, Lato, Nunito, Poppins,
-  Montserrat, Raleway, Merriweather, Playfair_Display,
-} from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { toPlain } from "@/lib/utils";
 import { getStoreSettings } from "@/lib/storeSettings";
@@ -13,51 +10,57 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { prisma } from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-roboto", display: "swap" });
-const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans", display: "swap" });
-const lato = Lato({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-lato", display: "swap" });
-const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-poppins", display: "swap" });
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
-const raleway = Raleway({ subsets: ["latin"], variable: "--font-raleway", display: "swap" });
-const merriweather = Merriweather({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-merriweather", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 
-const pageFonts = [inter, roboto, openSans, lato, nunito, poppins, montserrat, raleway, merriweather, playfair];
+const pageFonts = [inter];
 
 export async function generateMetadata() {
-  const settings = await getStoreSettings();
-  const name = settings.storeName || "Saayo",
-    title = settings.seoTitle || `${name} — Custom 3D T-Shirt Store`;
-  return {
-    title: { default: title, template: `%s | ${name}` },
-    description: settings.seoDescription,
-    applicationName: name,
-    metadataBase: new URL(process.env.APP_URL || "http://localhost:3000"),
-    openGraph: {
-      type: "website",
-      siteName: name,
-      title,
+  try {
+    const settings = await getStoreSettings();
+    const name = settings.storeName || "Saayo",
+      title = settings.seoTitle || `${name} — Custom 3D T-Shirt Store`;
+    return {
+      title: { default: title, template: `%s | ${name}` },
       description: settings.seoDescription,
-    },
-    ...(settings.faviconUrl ? { icons: { icon: settings.faviconUrl } } : {}),
-  };
+      applicationName: name,
+      metadataBase: new URL(process.env.APP_URL || "http://localhost:3000"),
+      openGraph: {
+        type: "website",
+        siteName: name,
+        title,
+        description: settings.seoDescription,
+      },
+      ...(settings.faviconUrl ? { icons: { icon: settings.faviconUrl } } : {}),
+    };
+  } catch {
+    return {
+      title: "Saayo Tees — Custom 3D T-Shirt Store",
+      description: "Create your custom 3D printed t-shirts",
+    };
+  }
 }
 
 export default async function RootLayout({ children }) {
-  const [categories, settings] = await Promise.all([
-    prisma.category.findMany({
-      where: { isActive: true, parentId: null },
-      orderBy: { sortOrder: "asc" },
-      take: 8,
-    }),
-    getStoreSettings(),
-  ]);
+  let categories = [];
+  let settings = null;
+  
+  try {
+    [categories, settings] = await Promise.all([
+      prisma.category.findMany({
+        where: { isActive: true, parentId: null },
+        orderBy: { sortOrder: "asc" },
+        take: 8,
+      }),
+      getStoreSettings(),
+    ]);
+  } catch {
+    // Build-time fallback when DATABASE_URL not available
+    settings = { storeName: "Saayo", primaryColor: "#2563eb" };
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: brandThemeCss(settings.primaryColor) }} />
+        <style dangerouslySetInnerHTML={{ __html: brandThemeCss(settings?.primaryColor) }} />
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
