@@ -4,8 +4,6 @@ primary_region = "sin"  # Singapore (close to your Supabase in ap-southeast-2)
 
 [build]
   dockerfile = "Dockerfile"
-  # Pass DATABASE_URL from secret to build for static generation
-  args = { DATABASE_URL = "${DATABASE_URL}" }
 
 [env]
   NODE_ENV = "production"

@@ -17,10 +17,12 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only
+        run: |
+          flyctl deploy --remote-only \
+            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-          # These get passed to the build/runtime via fly.toml [env] or secrets
+          # Runtime secrets (set on Fly app)
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
