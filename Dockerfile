@@ -7,11 +7,8 @@ RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci
-
-# Generate Prisma Client
 COPY prisma ./prisma/
-RUN npx prisma generate
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
