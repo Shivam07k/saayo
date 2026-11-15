@@ -2,7 +2,8 @@
 FROM node:18-bullseye AS base
 
 # Build arg for DATABASE_URL (needed for static generation)
-ARG DATABASE_URL
+# Provide dummy value for build - static generation handles missing DB gracefully
+ARG DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 ENV DATABASE_URL=$DATABASE_URL
 
 # Install dependencies only when needed
