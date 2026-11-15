@@ -45,6 +45,9 @@ jobs:
             --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}?connection_limit=10&pool_timeout=60" \
             -t saayo-tees:${{ github.sha }} .
 
+      - name: Set up Fly.io CLI
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
       - name: Login to Fly.io
         run: flyctl auth token ${{ secrets.FLY_API_TOKEN }}
 
