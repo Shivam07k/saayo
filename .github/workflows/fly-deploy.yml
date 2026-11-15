@@ -41,14 +41,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t saayo-tees:${{ github.sha }} .
+          docker build \
+            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            -t saayo-tees:${{ github.sha }} .
 
       - name: Login to Fly.io
         run: flyctl auth token ${{ secrets.FLY_API_TOKEN }}
 
       - name: Deploy to Fly.io
         run: |
-          flyctl deploy --image saayo-tees:${{ github.sha }} --app saayo-tees \
-            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}"
+          flyctl deploy --image saayo-tees:${{ github.sha }} --app saayo-tees
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
