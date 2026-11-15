@@ -43,15 +43,15 @@ echo "📋 Using subscription: $SUBSCRIPTION_ID"
 echo "📦 Creating resource group..."
 az group create --name $RESOURCE_GROUP --location $LOCATION
 
-# ========== CREATE POSTGRESQL SINGLE SERVER (FREE TIER) ==========
-echo "🐘 Creating PostgreSQL Single Server (Free tier)..."
+# ========== CREATE POSTGRESQL FLEXIBLE SERVER (BURSTABLE TIER) ==========
+echo "🐘 Creating PostgreSQL Flexible Server (Burstable tier)..."
 az postgres flexible-server create \
     --resource-group $RESOURCE_GROUP \
     --name $POSTGRES_SERVER \
     --location $LOCATION \
     --admin-user $POSTGRES_ADMIN \
     --admin-password $POSTGRES_PASSWORD \
-    --sku-name B_Gen5_1 \
+    --sku-name Standard_B1ms \
     --tier Burstable \
     --version 13 \
     --storage-size 32 \
