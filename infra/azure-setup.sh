@@ -6,7 +6,7 @@ set -e
 
 # ========== CONFIGURATION ==========
 RESOURCE_GROUP="saayo-rg"
-LOCATION="westus2"  # Student plan supported region for PostgreSQL
+LOCATION="southcentralus"  # Student plan supported region for PostgreSQL
 APP_NAME="saayo-tees"
 POSTGRES_SERVER="saayo-postgres"
 POSTGRES_DB="saayo"
