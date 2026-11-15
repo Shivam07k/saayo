@@ -35,14 +35,14 @@ jobs:
       - name: Build Next.js (standalone)
         run: npm run build:ci
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}?connection_limit=10&pool_timeout=60
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
 
       - name: Build Docker image
         run: |
           docker build \
-            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}?connection_limit=10&pool_timeout=60" \
             -t saayo-tees:${{ github.sha }} .
 
       - name: Login to Fly.io
