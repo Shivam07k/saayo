@@ -6,7 +6,7 @@ set -e
 
 # ========== CONFIGURATION ==========
 RESOURCE_GROUP="saayo-rg"
-LOCATION="eastus"  # Change if needed
+LOCATION="eastus2"  # Student plan supported region
 APP_NAME="saayo-tees"
 POSTGRES_SERVER="saayo-postgres"
 POSTGRES_DB="saayo"
