@@ -4,7 +4,7 @@ import { getStoreSettings } from "@/lib/storeSettings";
 import CmsPageView from "@/components/CmsPageView";
 import PageSections from "@/components/sections/PageSections";
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function ReturnRefundPage() {
   const [page, settings] = await Promise.all([

@@ -5,7 +5,7 @@ import StoreLocationMap from "@/components/StoreLocationMap";
 import { getStoreSettings } from "@/lib/storeSettings";
 import PageSections from "@/components/sections/PageSections";
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function ContactPage() {
   const page = await prisma.page.findUnique({ where: { slug: "contact" } });

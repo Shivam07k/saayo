@@ -4,7 +4,7 @@ import { ChevronRight, HelpCircle, ChevronDown } from "lucide-react";
 import { fontCss } from "@/lib/fonts";
 import PageSections from "@/components/sections/PageSections";
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function FaqPage() {
   const page = await prisma.page.findUnique({ where: { slug: "faq" } });

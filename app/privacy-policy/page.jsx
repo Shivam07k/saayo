@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import CmsPageView from "@/components/CmsPageView";
 import PageSections from "@/components/sections/PageSections";
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function PrivacyPolicyPage() {
   const page = await prisma.page.findUnique({ where: { slug: "privacy-policy" } });
