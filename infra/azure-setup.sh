@@ -45,29 +45,29 @@ az group create --name $RESOURCE_GROUP --location $LOCATION
 
 # ========== CREATE POSTGRESQL SINGLE SERVER (FREE TIER) ==========
 echo "🐘 Creating PostgreSQL Single Server (Free tier)..."
-az postgres server create \
+az postgres flexible-server create \
     --resource-group $RESOURCE_GROUP \
     --name $POSTGRES_SERVER \
     --location $LOCATION \
     --admin-user $POSTGRES_ADMIN \
     --admin-password $POSTGRES_PASSWORD \
     --sku-name B_Gen5_1 \
-    --version 11 \
-    --storage-size 5120 \
+    --tier Burstable \
+    --version 13 \
+    --storage-size 32 \
     --public-access all \
-    --ssl-enforcement Enabled \
     --yes
 
 # Create database
 echo "🗄️ Creating database..."
-az postgres db create \
+az postgres flexible-server db create \
     --resource-group $RESOURCE_GROUP \
     --server-name $POSTGRES_SERVER \
-    --name $POSTGRES_DB
+    --database-name $POSTGRES_DB
 
 # Get connection string
-POSTGRES_HOST="${POSTGRES_SERVER}.postgres.database.azure.com"
-DATABASE_URL="postgresql://${POSTGRES_ADMIN}@${POSTGRES_SERVER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}?schema=public&sslmode=require"
+POSTGRES_HOST=$(az postgres flexible-server show --resource-group $RESOURCE_GROUP --name $POSTGRES_SERVER --query fullyQualifiedDomainName -o tsv)
+DATABASE_URL="postgresql://${POSTGRES_ADMIN}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}?schema=public&sslmode=require"
 
 echo ""
 echo "✅ PostgreSQL created!"
