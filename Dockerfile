@@ -1,6 +1,10 @@
 # Railway Dockerfile for Next.js (standalone output)
 FROM node:18-bullseye AS base
 
+# Build arg for DATABASE_URL (needed for static generation)
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
