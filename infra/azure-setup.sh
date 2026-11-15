@@ -130,29 +130,63 @@ CLOUDINARY_API_SECRET: (your Cloudinary API secret)
 CUSTOM_DOMAIN: ${CUSTOM_DOMAIN}
 EOF
 
+# Supabase connection string (provided by user)
+DATABASE_URL="postgresql://postgres.bidjnbsyfytiodwuwuyq:Shivam%408683@aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres?schema=public&sslmode=require"
+
+# Configure app settings with Supabase
+echo "⚙️ Configuring app settings with Supabase..."
+az webapp config appsettings set \
+    --resource-group $RESOURCE_GROUP \
+    --name $APP_NAME \
+    --settings \
+    DATABASE_URL="$DATABASE_URL" \
+    NEXTAUTH_SECRET="$(openssl rand -base64 32)" \
+    NEXTAUTH_URL="https://${APP_NAME}.azurewebsites.net" \
+    NODE_ENV="production" \
+    CURRENCY="INR" \
+    PORT="8000" \
+    WEBSITES_PORT="8000"
+
 echo ""
 echo "═══════════════════════════════════════════════════════════"
-echo "🐘 GET FREE POSTGRESQL (2 minutes):"
+echo "✅ AZURE WEB APP CREATED WITH SUPABASE!"
 echo "═══════════════════════════════════════════════════════════"
 echo ""
-echo "Option 1 - Neon (Recommended, generous free tier):"
-echo "  1. Go to https://neon.tech"
-echo "  2. Sign up with GitHub"
-echo "  3. Create project → Copy connection string"
-echo "  4. Add as DATABASE_URL secret in GitHub"
+echo "📱 Web App URL: https://${APP_NAME}.azurewebsites.net"
+echo "📊 Resource Group: ${RESOURCE_GROUP}"
+echo "🐘 Database: Supabase (aws-1-ap-southeast-2.pooler.supabase.com)"
 echo ""
-echo "Option 2 - Supabase:"
-echo "  1. Go to https://supabase.com"
-echo "  2. Create project → Settings → Database → Connection string"
-echo "  3. Add as DATABASE_URL secret in GitHub"
+echo "🔐 GitHub Secrets to add in: https://github.com/${GITHUB_REPO}/settings/secrets/actions"
 echo ""
-echo "Option 3 - Railway:"
-echo "  1. Go to https://railway.app"
-echo "  2. New Project → PostgreSQL → Connect → Copy URL"
+cat << EOF
+REQUIRED SECRETS:
+
+AZURE_CREDENTIALS: (copy the JSON below from .azure-sp.json)
+$(cat .azure-sp.json)
+
+DATABASE_URL: $DATABASE_URL
+NEXTAUTH_SECRET: $(openssl rand -base64 32)
+NEXTAUTH_URL: https://${CUSTOM_DOMAIN:-${APP_NAME}.azurewebsites.net}
+STRIPE_SECRET_KEY: (your Stripe live secret key)
+STRIPE_WEBHOOK_SECRET: (from Stripe Dashboard -> Webhooks)
+RAZORPAY_KEY_ID: (your Razorpay key ID)
+RAZORPAY_KEY_SECRET: (your Razorpay key secret)
+RAZORPAY_WEBHOOK_SECRET: (from Razorpay Dashboard)
+SMTP_HOST: (your SMTP host)
+SMTP_PORT: (e.g., 587)
+SMTP_USER: (your SMTP username)
+SMTP_PASS: (your SMTP password)
+SMTP_FROM: Saayo Tees <noreply@${CUSTOM_DOMAIN:-${APP_NAME}.azurewebsites.net}>
+CLOUDINARY_CLOUD_NAME: (your Cloudinary cloud name)
+CLOUDINARY_API_KEY: (your Cloudinary API key)
+CLOUDINARY_API_SECRET: (your Cloudinary API secret)
+CUSTOM_DOMAIN: ${CUSTOM_DOMAIN}
+EOF
+
 echo ""
 echo "═══════════════════════════════════════════════════════════"
 echo "💰 Cost on Student Plan: ~$0/month"
 echo "   - App Service F1: Free"
-echo "   - External PostgreSQL: Free tier"
+echo "   - Supabase: Free tier"
 echo "   - Custom Domain + SSL: Free"
 echo "═══════════════════════════════════════════════════════════"
