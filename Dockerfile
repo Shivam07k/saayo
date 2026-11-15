@@ -1,5 +1,8 @@
 # Railway Dockerfile for Next.js (standalone output)
-FROM node:18-slim AS base
+FROM node:18-bullseye-slim AS base
+
+# Install libssl1.1 for Prisma engine
+RUN apt-get update -y && apt-get install -y libssl1.1 && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies only when needed
 FROM base AS deps
