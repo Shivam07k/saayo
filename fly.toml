@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for saayo-tees on 2026-11-15T19:38:25+05:30
+# fly.toml app configuration file generated for saayo-autznw on 2026-11-15T16:32:26Z
 #
 # See https://docs.fly.io/reference/configuration for information about how to use this file.
 #
 
-app = 'saayo-tees'
+app = 'saayo-autznw'
 primary_region = 'sin'
 
 [build]
@@ -27,5 +27,6 @@ primary_region = 'sin'
 
 [[vm]]
   memory = '256mb'
+  cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
