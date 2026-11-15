@@ -55,8 +55,7 @@ az postgres flexible-server create \
     --tier Burstable \
     --version 16 \
     --storage-size 32 \
-    --public-access 0.0.0.0 \
-    --high-availability Disabled \
+    --public-access all \
     --backup-retention 7 \
     --yes
 
